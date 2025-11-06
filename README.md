@@ -1,2 +1,2 @@
 # 2030_Final_Project
-#Typing test project for CPSC 2030
+Typing test Website for CPSC 2030.
