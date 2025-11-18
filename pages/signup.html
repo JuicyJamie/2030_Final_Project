@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Typer's Queue: Sign Up</title>
-        <link rel="stylesheet" href="./styles/forms.css">
+        <link rel="stylesheet" href="../styles/forms.css">
     </head>
     <body>
         <div id="wrapper">
@@ -12,15 +12,18 @@
                 <span>Sign Up</span>
                 <form action="validation.php" method="post">
                     <label for="email">Email Address: </label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email address...">
+                    <input type="email" name="email" id="email" placeholder="Enter your email address..." minlength="6">
 
                     <label for="username">Username: </label>
                     <input type="text" name="username" id="username" placeholder="Create your username..." minlength="4" maxlength="16">
 
 
                     <label for="password">Password: </label>
-                    <input type="password" name="password1" id="password1" placeholder="Create your password...">
-                    <input type="password" name="password2" id="password2" placeholder="Confirm your password...">
+                    <input type="password" name="password1" id="password1" placeholder="Create your password..." minlength="5" maxlength="20">
+                    <input type="password" name="password2" id="password2" placeholder="Confirm your password..." minlength="5" maxlength="20">
+
+                    <a href="../index.html">Go Back</a>
+                    <input type="submit" value="Sign Up">
                 </form>                
             </div>
         </div>
