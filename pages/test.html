@@ -4,9 +4,10 @@
         <meta charset="utf-8">
         <title>Typer's Queue</title>
         <link rel="stylesheet" href="../styles/test.css">
-        <script defer src="testing.js"></script>
+        <script defer src="../scripts/testing.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     </head>
-    <body>
+    <body onload="setup()">
         <div id="wrapper">
             <div id="top-row">
                 <h1>Typer's Queue</h1>
@@ -19,35 +20,7 @@
 
             <div id="testing-area">
                 <div id="text-area">
-                    <!-- have to find a way to fetch text from database and output it here -->
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos distinctio alias iusto, fuga pariatur recusandae quo repellendus, 
-                    deleniti cupiditate magnam cum quibusdam eius nisi accusamus ratione! Cumque, tenetur dignissimos? Corporis.
-                    <span>This</span>
-                    <span>is</span>
-                    <span>what</span>
-                    <span>spans</span>
-                    <span>look</span>
-                    <span>like</span>
-                    <span>This</span>
-                    <span>is</span>
-                    <span>what</span>
-                    <span>spans</span>
-                    <span>look</span>
-                    <span>like</span>
-                    <span>This</span>
-                    <span>is</span>
-                    <span>what</span>
-                    <span>spans</span>
-                    <span>look</span>
-                    <span>like</span>
-                    <span>This</span>
-                    <span>is</span>
-                    <span>what</span>
-                    <span>spans</span>
-                    <span>look</span>
-                    <span>like</span>
                 </div>
-
                 <div id="bottom-row">
                     <input type="text" placeholder="Type text here...">
                     <!-- js code will update the text in the timer every second counting up-->
