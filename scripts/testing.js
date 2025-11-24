@@ -18,9 +18,8 @@ function setup() {
 
     $("#inputBar").keyup(function(e) {
         keystrokes ++;
-        if (e.keyCode != 13 && !started) {
+        if (e.keyCode !== 13 && e.keyCode !== 9 && !started) {
             beginTest();
-            console.log(started);
         }
         if (e.keyCode === 32) {
             let entered = $("#inputBar").val();
@@ -48,8 +47,6 @@ function setup() {
         else {
             let typed = $("#inputBar").val();
             let currentWord = $("#text-area").find("span.current").text();
-            console.log(currentWord);
-            console.log(typed);
             let currentWordTrimmed = currentWord.substring(0, typed.length);
             if (typed != currentWordTrimmed) {
                 $("#text-area").find("span.current").addClass("wrong-current");
@@ -122,19 +119,13 @@ function turnIntoArray(paragraph) {
 
 function beginTest() {
     started = true;
-    timer();    
+    timer();
     $("#text-area").children("span.first").addClass("current");
     $("#text-area").children("span.first").next().addClass("nextWord");
 
 }
 
 function resetTest() {
-    $("#resultsSheet").hide();
-    $("#text-area").html("");
-    $("#inputBar").val("");
-    getRandomTest();
-    $("#inputBar").focus();
-    //restart timer
     correct = 0;
     incorrect = 0;
     keystrokes = 0;
@@ -142,7 +133,12 @@ function resetTest() {
     seconds = 1;
     minutes = 0;
     document.getElementById("timer").innerHTML = "0:00";
-    clearInterval(timerFunc);
+    clearInterval(timerFunc);    
+    $("#resultsSheet").hide();
+    $("#text-area").html("");
+    $("#inputBar").val("");
+    getRandomTest();
+    $("#inputBar").focus();
 }
 
 function showResults() {
