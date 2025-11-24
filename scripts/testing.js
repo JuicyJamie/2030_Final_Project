@@ -7,6 +7,9 @@ let minutes = 0;
 let timerFunc;
 
 function setup() {
+    $(document).click(function() {
+        $("#inputBar").focus();
+    });
     resetTest();
 
     $("#restart").click(function() {
