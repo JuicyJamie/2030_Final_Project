@@ -38,7 +38,7 @@ body {
     border: 2px solid #ffffff;
     border-radius: 10px;
     width: 70vw;
-    height: 50vh;
+    height: 40vh;
     font-size: 2rem;
     padding: 3rem;
     color: darkgray;
@@ -54,6 +54,7 @@ body {
 
 .wrong-current {
     background-color: #e45858;
+    border-radius: 5px;
 }
 
 .wrong-previous {
@@ -108,3 +109,37 @@ input[type="text"] {
     border-radius: 10px;
     font-size: 1.5rem;
 }
+
+#resultsSheet {
+    margin-top: 2rem;
+    width: 75vw;
+    /* border: 2px solid #ffffff; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#wpm {
+    grid-column: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#wpm span {
+    font-size: 1.2rem;
+}
+
+#testStats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#testStats span {
+    font-size: 1.5rem;
+}
+#testStats span:first-of-type {
+    font-size: 2rem;
+    font-weight: bold;
+}
+

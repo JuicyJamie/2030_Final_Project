@@ -2,6 +2,9 @@ let started = false;
 let correct = 0;
 let incorrect = 0;
 let keystrokes = 0;
+let seconds = 1;
+let minutes = 0;
+let timerFunc;
 
 function setup() {
     resetTest();
@@ -42,8 +45,10 @@ function setup() {
         else {
             let typed = $("#inputBar").val();
             let currentWord = $("#text-area").find("span.current").text();
-            currentWord = currentWord.substring(0, typed.length);
-            if (typed != currentWord) {
+            console.log(currentWord);
+            console.log(typed);
+            let currentWordTrimmed = currentWord.substring(0, typed.length);
+            if (typed != currentWordTrimmed) {
                 $("#text-area").find("span.current").addClass("wrong-current");
             }
             else {
@@ -51,12 +56,23 @@ function setup() {
             }
 
             if ($("#text-area").find("span.current").next().length === 0) {
-                if (typed.length === $("#text-area").find("span.current").length && typed.length !== 0) {
-                    //grab text from timer div and parse into int
+                // console.log(typed.length);
+                if (typed.length === currentWord.length && typed.length != 0) {
                     //add incorrect words + correct words and then divide by timer to get wpm
                     //divide correct words from total words to get accuracy
-                    console.log("correct: " + correct + "\nincorrect: " + incorrect + "\nkeystrokes: " + keystrokes);
-                    console.log(typed);
+                    if (typed == currentWord) {
+                        $("#text-area").find("span.current").addClass("correct");
+                        $("#text-area").find("span.current").removeClass("current");
+                        correct ++;
+                    }
+                    else {
+                        $("#text-area").find("span.current").removeClass("wrong-current");
+                        $("#text-area").find("span.current").addClass("wrong-previous");
+                        $("#text-area").find("span.current").removeClass("current");
+                        incorrect ++;
+                    }
+                    clearInterval(timerFunc);
+                    showResults();
                 }
             }
         }
@@ -64,7 +80,8 @@ function setup() {
 }
 
 function getRandomTest() {
-    let rand = Math.floor(Math.random() * 5 + 1);
+    // let rand = Math.floor(Math.random() * 5 + 1);
+    let rand = 6;
 
     $.getJSON("../tests/tests.json", function(data) {
         let testArr = turnIntoArray(data['test' + rand].testText);
@@ -72,8 +89,11 @@ function getRandomTest() {
             if (i === 0) {
                 $("#text-area").append("<span class='first'>" + word + " </span>");
             }
-            else {
+            else if (i < testArr.length-1){
                 $("#text-area").append("<span>" + word + " </span>");
+            }
+            else {
+                $("#text-area").append("<span>" + word + "</span>");
             }
         })
     });
@@ -98,14 +118,15 @@ function turnIntoArray(paragraph) {
 }
 
 function beginTest() {
-    // start the timer
     started = true;
+    timer();    
     $("#text-area").children("span.first").addClass("current");
     $("#text-area").children("span.first").next().addClass("nextWord");
 
 }
 
 function resetTest() {
+    $("#resultsSheet").hide();
     $("#text-area").html("");
     $("#inputBar").val("");
     getRandomTest();
@@ -115,5 +136,35 @@ function resetTest() {
     incorrect = 0;
     keystrokes = 0;
     started = false;
+    seconds = 1;
+    minutes = 0;
+    document.getElementById("timer").innerHTML = "0:00";
+    clearInterval(timerFunc);
+}
+
+function showResults() {
+    let wpm = Math.round((correct + incorrect) / (minutes * 60 + seconds) * 60);
+    $("#wpm").html("<span>You typed</span><h1>" + wpm + "</h1><h2>WPM</h2>");
+    $("#testStats").html("<span>Statistics: </span><span> Correct words: "+ correct 
+        + "</span><span> Incorrect words: " + incorrect + "</span><span> Total keystrokes: " + keystrokes + "</span>");
+    $("#resultsSheet").fadeIn();
+}
+
+function timer() {
+    let timerDiv = document.getElementById("timer");
+
+    timerFunc = setInterval(function() {
+        if (seconds >= 60) {
+            minutes ++;
+            seconds = 0;
+        }
+        if (seconds < 10) {
+            timerDiv.innerHTML = minutes + ":0" + seconds;
+        }
+        else {
+            timerDiv.innerHTML = minutes + ":" + seconds;
+        }
+        seconds ++;
+    }, 1000);
 }
 

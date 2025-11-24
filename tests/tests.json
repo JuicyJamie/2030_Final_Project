@@ -27,5 +27,11 @@
         "testID": 5,
         "testText": "I remember the day after my son died. The entire underground was devoid of hope. The future had once again been taken from us by the humans. In a fit of anger, I declared war. I said that I would destroy any human that came here. I would use their souls to become godlike... and free us from this terrible prison. Then, I would destroy humanity... And let monsters rule the surface, in peace. Soon, the people's hopes returned. My wife, however, became disgusted with my actions. She left this place, never to be seen again.",
         "testSource": "Asgore Dreemurr from Undertale"
+    },
+
+    "test6": {
+        "testID": 6,
+        "testText": "This test is 6 words long.",
+        "testSource": "testing"
     }
 }
