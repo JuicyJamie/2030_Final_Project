@@ -1,4 +1,4 @@
-#Typer's Queue
+Typer's Queue
 Typing test Website for CPSC 2030.
 
 To play, run the sql file and start a local server. 
