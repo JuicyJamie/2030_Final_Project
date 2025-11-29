@@ -11,7 +11,23 @@
             body {
                 background-color: #2c2c2c;
                 font-family: "Iceland", sans-serif;
+                background-image: url('pictures/inspiration-geometry.png');
+                animation-name: backgroundLoop;
+                animation-duration: 10.0s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
             }
+
+            @keyframes backgroundLoop {
+                0% {
+                    background-position: 0px 0px;
+                }
+
+                100% {
+                    background-position: 412px 0px;
+                }
+            }
+
             #wrapper {
                 display: flex;
                 flex-direction: column;
@@ -73,15 +89,22 @@
             <h2>Welcome to</h2>
             <div id="button-wrapper">
                 <h1>Typer's Queue</h1>
-                <a href="pages/login.html" id="login">Log In</a>
-                <a href="pages/signup.html" id="signup">Sign up</a>
+                <a href="pages/login.php" id="login" aria-label="log in button">Log In</a>
+                <a href="pages/signup.php" id="signup" aria-label="sign up button">Sign up</a>
             </div>
             <div id="guest-wrapper">
                 <span>or</span>
-                <a href="pages/test.html" id="guest"> continue as guest</a>                
+                <a href="#" id="guest" aria-label="continue as guest link"> continue as guest</a>                
             </div>
-
+            <a href="documentation.html">Documentation and Sources</a>
         </div>
         
     </body>
+    <script>
+        document.getElementById("guest").addEventListener("click", function() {
+            document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+            document.cookie = "userID=-1; path=/;";
+            window.location.href = "pages/test.html";
+        })
+    </script>
 </html>

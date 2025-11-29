@@ -5,8 +5,16 @@ let keystrokes = 0;
 let seconds = 1;
 let minutes = 0;
 let timerFunc;
+let testTitle;
 
 function setup() {
+    let userCookie = getCookie("userID");
+    if (parseInt(userCookie) === -1) {
+        $("#profile").hide();
+        $("#top-row h1").click(function() {
+            window.location.href = "../index.html";
+        })
+    }
     $(document).click(function() {
         $("#inputBar").focus();
     });
@@ -56,7 +64,6 @@ function setup() {
             }
 
             if ($("#text-area").find("span.current").next().length === 0) {
-                // console.log(typed.length);
                 if (typed.length === currentWord.length && typed.length != 0) {
                     //add incorrect words + correct words and then divide by timer to get wpm
                     //divide correct words from total words to get accuracy
@@ -80,11 +87,11 @@ function setup() {
 }
 
 function getRandomTest() {
-    // let rand = Math.floor(Math.random() * 5 + 1);
-    let rand = 6;
+    let rand = Math.floor(Math.random() * 5 + 1);
 
     $.getJSON("../tests/tests.json", function(data) {
         let testArr = turnIntoArray(data['test' + rand].testText);
+        testTitle = data['test' + rand].testTitle;
         testArr.map(function(word, i) {
             if (i === 0) {
                 $("#text-area").append("<span class='first'>" + word + " </span>");
@@ -93,7 +100,7 @@ function getRandomTest() {
                 $("#text-area").append("<span>" + word + " </span>");
             }
             else {
-                $("#text-area").append("<span>" + word + "</span>");
+                $("#text-area").append("<span>" + word + "</span>"); //remove space at end
             }
         })
     });
@@ -147,6 +154,7 @@ function showResults() {
     $("#testStats").html("<span>Statistics: </span><span> Correct words: "+ correct 
         + "</span><span> Incorrect words: " + incorrect + "</span><span> Total keystrokes: " + keystrokes + "</span>");
     $("#resultsSheet").fadeIn();
+    postData(wpm, Math.round(correct/(correct + incorrect) * 100));
 }
 
 function timer() {
@@ -165,5 +173,32 @@ function timer() {
         }
         seconds ++;
     }, 1000);
+}
+
+function postData(wpm, accuracy) {
+    let userCookie = getCookie("userID");
+    if (parseInt(userCookie) !== -1) {
+        $.post("page-scripts/testPost.php", {
+            userID: userCookie,
+            wpm: wpm,
+            testTitle: testTitle,
+            time: document.getElementById("timer").innerHTML,
+            accuracy: accuracy
+        });
+    }
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let cArr = document.cookie.split(';');
+    for(let i = 0; i < cArr.length; i++) {
+    let c = cArr[i];
+    while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+    }
+    }
 }
 
